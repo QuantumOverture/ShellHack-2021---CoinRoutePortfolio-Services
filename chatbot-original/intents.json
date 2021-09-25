@@ -1,0 +1,57 @@
+{
+  "intents": [
+    {
+      "tag": "conversion",
+      "patterns": [
+        "What is the value of {CURRENCY_1_NAME} in {CURRENCY_2_NAME}?",
+        "What is the price of {CURRENCY_1_NAME} in {CURRENCY_2_NAME}?",
+        "{CURRENCY_1_NAME} to {CURRENCY_2_NAME}",
+        "Convert {CURRENCY_1_NAME} to {CURRENCY_2_NAME}",
+        "Can you convert {CURRENCY_1_NAME} to {CURRENCY_NAME_2}?",
+        "How much is one {CURRENCY_1_NAME} in {CURRENCY_2_NAME}?"
+      ],
+      "responses": [
+        "The price of {CURRENCY_1_NAME} is {PRICE_VALUE} in {CURRENCY_2_NAME}",
+        "1 {CURRENCY_1_NAME} = {PRICE_VALUE} in {CURRENCY_2_NAME}"
+      ]
+    },
+    {
+      "tag": "conversation and greeting",
+      "patterns": [
+        "Hi, what is the value of {CURRENCY_1_NAME} in {CURRENCY_2_NAME}?",
+        "Hi, what is the price of {CURRENCY_1_NAME} in {CURRENCY_2_NAME}?",
+        "Hi, {CURRENCY_1_NAME} to {CURRENCY_2_NAME}",
+        "Hi, convert {CURRENCY_1_NAME} to {CURRENCY_2_NAME}",
+        "Hi, can you convert {CURRENCY_1_NAME} to {CURRENCY_NAME_2}?",
+        "Hi, How much is one {CURRENCY_1_NAME} in {CURRENCY_2_NAME}?"
+      ],
+      "responses": [
+        "Hi, the price of {CURRENCY_1_NAME} is {PRICE_VALUE} in {CURRENCY_2_NAME}",
+        "Hi! 1 {CURRENCY_1_NAME} = {PRICE_VALUE} in {CURRENCY_2_NAME}"
+      ]
+    },
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hello",
+        "Hi"
+      ],
+      "responses": [
+        "Hi! How can I help you?",
+        "Hello! How can I assist you?"
+      ]
+    },
+    {
+      "tag": "salutation",
+      "patterns": [
+        "Bye",
+        "Goodbye",
+        "Good-bye",
+        "See you later"
+      ],
+      "responses": [
+        "Bye!"
+      ]
+    }
+  ]
+}
