@@ -37,6 +37,9 @@ def AuthUser():
             return "Missing key account data - make sure to follow the planning document",400
         
         if Task == "creation":
+            AccountSeek = Account.query.filter_by(UserName = UserName,Password=Password).all()
+            if len(AccountSeek) >= 1:
+                return "You are trying to create a duplicate account - account creation failed", 400
             try:
                 db.session.add(Account(UserName,Password))
                 db.session.commit()
