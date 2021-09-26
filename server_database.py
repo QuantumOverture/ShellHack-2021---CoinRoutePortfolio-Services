@@ -12,7 +12,7 @@ class Database(db.Model):
     Key_Table = db.Column(db.String(100))
     RawJSONData = db.Column(db.Text())
     def __init__(self,Key_Table, Data):
-        self.Key_Table = UserName
+        self.Key_Table = Key_Table
         self.RawJSONData = Data
     
 @app.route('/DB', methods = ["GET","POST"])
@@ -87,7 +87,7 @@ def DB():
             for Key in OldData:
                 Keys.append(Key)
             
-            return "{{ keys:'{}' }}.format(Keys)", 200
+            return "{{ keys:'{}' }}".format(Keys), 200
         elif Task == "delete":
             KeySeek = Database.query.filter_by(Key_Table=Key_Table).all()
             if len(KeySeek) > 1:
@@ -98,17 +98,29 @@ def DB():
             if Data == None:
                 db.session.delete(KeySeek[0])
                 db.session.commit()
-                return "Deleted all data in {}".Key_Table,200
+                return "Deleted all data in {}".format(Key_Table),200
             else:
                 OldData = json.loads(KeySeek[0].RawJSONData)
                 KeysForDeletion = json.loads(Data)["keys"]
+                
                 for DataItem in frozenset(OldData):
+                    print(DataItem)
                     if DataItem in KeysForDeletion:
-                        del DataItem
+                        del OldData[DataItem]
                 
                 KeySeek[0].RawJSONData = json.dumps(OldData)
                 db.session.commit()
                 return "Deleted the following keys: {} in {}".format(KeysForDeletion,Key_Table), 200
+        elif Task == "get_data":
+            KeySeek = Database.query.filter_by(Key_Table=Key_Table).all()
+            if len(KeySeek) > 1:
+                return "You are trying to get data from duplicate tables - please delete duplicates - data grab failed", 400
+            elif len(KeySeek) == 0:
+                return "Table not found - data deletion failed", 400
+            
+            OldData = json.loads(KeySeek[0].RawJSONData)
+            DataKey = json.loads(Data)["key"]
+            return str(OldData[DataKey]).replace("+"," "), 200
         else:
             return "Task not correctly specifed - make sure to follow the planning document",400
     else:
